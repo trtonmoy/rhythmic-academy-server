@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "image": "john_doe.jpg",
+    "skill": ["Guitar", "Piano", "Drums"],
+    "email": "johndoe@example.com",
+    "experience": "5 years",
+    "bio": "Multi-instrumentalist passionate about music, making learning fun and engaging for students."
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "image": "jane_smith.jpg",
+    "skill": ["Violin", "Cello", "Saxophone", "Flute"],
+    "email": "janesmith@example.com",
+    "experience": "8 years",
+    "bio": "Talented musician sharing the beauty of music, helping students develop their skills."
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "image": "michael_johnson.jpg",
+    "skill": ["Trumpet", "Trombone", "French Horn"],
+    "email": "michaeljohnson@example.com",
+    "experience": "10 years",
+    "bio": "Seasoned brass instrumentalist dedicated to helping students master trumpet, trombone, and French horn."
+  },
+  {
+    "id": 4,
+    "name": "Sarah Lee",
+    "image": "sarah_lee.jpg",
+    "skill": ["Bass Guitar", "Ukulele"],
+    "email": "sarahlee@example.com",
+    "experience": "3 years",
+    "bio": "Passionate bass guitarist and ukulele player creating a supportive and inspiring learning environment."
+  },
+  {
+    "id": 5,
+    "name": "David Brown",
+    "image": "david_brown.jpg",
+    "skill": ["Harmonica", "Accordion"],
+    "email": "davidbrown@example.com",
+    "experience": "6 years",
+    "bio": "Skilled harmonica and accordion player introducing students to the unique sounds of these instruments."
+  },
+  {
+    "id": 6,
+    "name": "Emily Taylor",
+    "image": "emily_taylor.jpg",
+    "skill": ["Violin", "Piano", "Cello", "Guitar", "Drums"],
+    "email": "emilytaylor@example.com",
+    "experience": "4 years",
+    "bio": "Versatile musician helping students discover their musical interests across multiple instruments."
+  },
+  {
+    "id": 7,
+    "name": "Daniel Wilson",
+    "image": "daniel_wilson.jpg",
+    "skill": ["Saxophone", "Flute", "Clarinet"],
+    "email": "danielwilson@example.com",
+    "experience": "7 years",
+    "bio": "Skilled woodwind instrumentalist unlocking students' potential in saxophone, flute, and clarinet."
+  },
+  {
+    "id": 8,
+    "name": "Olivia Anderson",
+    "image": "olivia_anderson.jpg",
+    "skill": ["Keyboard", "Guitar", "Vocals"],
+    "email": "oliviaanderson@example.com",
+    "experience": "9 years",
+    "bio": "Talented musician helping students develop their musical abilities in keyboard, guitar, and vocals."
+  }
+]

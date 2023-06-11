@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Guitar",
+    "small_details": "The guitar is a versatile string instrument with a curved body, a fretted neck, and usually six strings. It is played by plucking or strumming the strings to produce sounds."
+  },
+  {
+    "id": 2,
+    "name": "Piano",
+    "small_details": "The piano is a large keyboard instrument that produces sound by striking strings with hammers. It has a wide range of notes and is played by pressing keys, which triggers the corresponding hammers to create music."
+  },
+  {
+    "id": 3,
+    "name": "Violin",
+    "small_details": "The violin is a four-stringed bowed instrument that is played by drawing a bow across the strings. It is known for its expressive and versatile sound and is commonly used in classical music."
+  },
+  {
+    "id": 4,
+    "name": "Drums",
+    "small_details": "Drums are a percussion instrument that consists of various-sized drums and cymbals. They are played by striking them with drumsticks or hands to create rhythmic patterns and beats."
+  },
+  {
+    "id": 5,
+    "name": "Flute",
+    "small_details": "The flute is a wind instrument that is played by blowing air across a hole or an opening. It has a beautiful and airy tone and is commonly used in classical, jazz, and world music."
+  },
+  {
+    "id": 6,
+    "name": "Saxophone",
+    "small_details": "The saxophone is a versatile woodwind instrument that is commonly used in jazz and classical music. It has a distinctive sound and is played by blowing air into a mouthpiece and pressing keys to change the pitch."
+  },
+  {
+    "id": 7,
+    "name": "Trumpet",
+    "small_details": "The trumpet is a brass instrument that is played by blowing air into a cup-shaped mouthpiece. It has a bright and powerful sound and is commonly used in orchestras, jazz bands, and military ensembles."
+  },
+  {
+    "id": 8,
+    "name": "Bass Guitar",
+    "small_details": "The bass guitar is a string instrument similar to the guitar, but with a longer scale length and lower pitch. It provides the foundation for most musical ensembles, playing the bassline and providing rhythmic support."
+  }
+]
