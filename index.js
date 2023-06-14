@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 5000;
 
 // middleware
@@ -32,8 +32,101 @@ async function run() {
       .db("Rhythmic")
       .collection("instruments");
 
+    const instructorsCollection = client
+      .db("Rhythmic")
+      .collection("instructors");
+    const admissionCollection = client.db("Rhythmic").collection("admission");
+    const usersCollection = client.db("Rhythmic").collection("users");
+
+    // ---------Users-----------
+
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await usersCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "user exists..." });
+      }
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+
+    // ---------Instruments------------
+
     app.get("/instruments", async (req, res) => {
       const result = await instrumentsCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.post("/instruments", async (req, res) => {
+      const newInstrument = req.body;
+      const result = await instrumentsCollection.insertOne(newInstrument);
+      res.send(result);
+    });
+
+    app.put("/instruments/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const newInstrument = req.body;
+      const options = { upsert: true };
+      console.log(newInstrument);
+      const updatedInstrument = {
+        $set: {
+          role: newInstrument.role,
+          feedback: newInstrument.feedback,
+        },
+      };
+      const result = await instrumentsCollection.updateOne(
+        filter,
+        updatedInstrument,
+        options
+      );
+      res.send(result);
+    });
+
+    // --------Instructors-----------
+
+    app.get("/instructors", async (req, res) => {
+      const result = await instructorsCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.get("/instructors/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await instructorsCollection.findOne(query);
+      res.send(result);
+    });
+
+    // -------
+
+    // --------Admission-----------
+
+    app.get("/admission", async (req, res) => {
+      const email = req.query.email;
+      if (!email) {
+        res.send([]);
+      }
+      const query = { email: email };
+      const result = await admissionCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.post("/admission", async (req, res) => {
+      const subject = req.body;
+      const result = await admissionCollection.insertOne(subject);
+      res.send(result);
+    });
+
+    app.delete("/admission/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await admissionCollection.deleteOne(query);
       res.send(result);
     });
 

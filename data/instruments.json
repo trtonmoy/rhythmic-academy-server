@@ -2,41 +2,73 @@
   {
     "id": 1,
     "name": "Guitar",
-    "small_details": "The guitar is a versatile string instrument with a curved body, a fretted neck, and usually six strings. It is played by plucking or strumming the strings to produce sounds."
+    "small_details": "The guitar is a versatile string instrument with a curved body, a fretted neck, and usually six strings. It is played by plucking or strumming the strings to produce sounds.",
+    "price": 100,
+    "available_seats": 10,
+    "instructor_name": "John Smith",
+    "image": "guitar_image.jpg"
   },
   {
     "id": 2,
     "name": "Piano",
-    "small_details": "The piano is a large keyboard instrument that produces sound by striking strings with hammers. It has a wide range of notes and is played by pressing keys, which triggers the corresponding hammers to create music."
+    "small_details": "The piano is a large keyboard instrument that produces sound by striking strings with hammers. It has a wide range of notes and is played by pressing keys, which triggers the corresponding hammers to create music.",
+    "price": 200,
+    "available_seats": 5,
+    "instructor_name": "Emily Johnson",
+    "image": "piano_image.jpg"
   },
   {
     "id": 3,
     "name": "Violin",
-    "small_details": "The violin is a four-stringed bowed instrument that is played by drawing a bow across the strings. It is known for its expressive and versatile sound and is commonly used in classical music."
+    "small_details": "The violin is a four-stringed bowed instrument that is played by drawing a bow across the strings. It is known for its expressive and versatile sound and is commonly used in classical music.",
+    "price": 150,
+    "available_seats": 8,
+    "instructor_name": "Michael Davis",
+    "image": "violin_image.jpg"
   },
   {
     "id": 4,
     "name": "Drums",
-    "small_details": "Drums are a percussion instrument that consists of various-sized drums and cymbals. They are played by striking them with drumsticks or hands to create rhythmic patterns and beats."
+    "small_details": "Drums are a percussion instrument that consists of various-sized drums and cymbals. They are played by striking them with drumsticks or hands to create rhythmic patterns and beats.",
+    "price": 120,
+    "available_seats": 7,
+    "instructor_name": "Sarah Thompson",
+    "image": "drums_image.jpg"
   },
   {
     "id": 5,
     "name": "Flute",
-    "small_details": "The flute is a wind instrument that is played by blowing air across a hole or an opening. It has a beautiful and airy tone and is commonly used in classical, jazz, and world music."
+    "small_details": "The flute is a wind instrument that is played by blowing air across a hole or an opening. It has a beautiful and airy tone and is commonly used in classical, jazz, and world music.",
+    "price": 80,
+    "available_seats": 6,
+    "instructor_name": "David Wilson",
+    "image": "flute_image.jpg"
   },
   {
     "id": 6,
     "name": "Saxophone",
-    "small_details": "The saxophone is a versatile woodwind instrument that is commonly used in jazz and classical music. It has a distinctive sound and is played by blowing air into a mouthpiece and pressing keys to change the pitch."
+    "small_details": "The saxophone is a versatile woodwind instrument that is commonly used in jazz and classical music. It has a distinctive sound and is played by blowing air into a mouthpiece and pressing keys to change the pitch.",
+    "price": 180,
+    "available_seats": 4,
+    "instructor_name": "Jessica Miller",
+    "image": "saxophone_image.jpg"
   },
   {
     "id": 7,
     "name": "Trumpet",
-    "small_details": "The trumpet is a brass instrument that is played by blowing air into a cup-shaped mouthpiece. It has a bright and powerful sound and is commonly used in orchestras, jazz bands, and military ensembles."
+    "small_details": "The trumpet is a brass instrument that is played by blowing air into a cup-shaped mouthpiece. It has a bright and powerful sound and is commonly used in orchestras, jazz bands, and military ensembles.",
+    "price": 160,
+    "available_seats": 3,
+    "instructor_name": "Robert Thompson",
+    "image": "trumpet_image.jpg"
   },
   {
     "id": 8,
     "name": "Bass Guitar",
-    "small_details": "The bass guitar is a string instrument similar to the guitar, but with a longer scale length and lower pitch. It provides the foundation for most musical ensembles, playing the bassline and providing rhythmic support."
+    "small_details": "The bass guitar is a string instrument similar to the guitar, but with a longer scale length and lower pitch. It provides the foundation for most musical ensembles, playing the bassline and providing rhythmic support.",
+    "price": 140,
+    "available_seats": 9,
+    "instructor_name": "Michelle Davis",
+    "image": "bass_guitar_image.jpg"
   }
 ]
