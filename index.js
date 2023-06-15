@@ -56,6 +56,19 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const newUser = req.body;
+      const updatedUser = {
+        $set: {
+          role: newUser.role,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedUser);
+      res.send(result);
+    });
+
     // ---------Instruments------------
 
     app.get("/instruments", async (req, res) => {
@@ -74,7 +87,6 @@ async function run() {
       const filter = { _id: new ObjectId(id) };
       const newInstrument = req.body;
       const options = { upsert: true };
-      console.log(newInstrument);
       const updatedInstrument = {
         $set: {
           role: newInstrument.role,
@@ -85,6 +97,22 @@ async function run() {
         filter,
         updatedInstrument,
         options
+      );
+      res.send(result);
+    });
+
+    app.patch("/instruments/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const newInstrument = req.body;
+      const updatedInstrument = {
+        $set: {
+          role: newInstrument.role,
+        },
+      };
+      const result = await instrumentsCollection.updateOne(
+        filter,
+        updatedInstrument
       );
       res.send(result);
     });
