@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 5000;
 
@@ -10,7 +12,28 @@ app.use(cors());
 app.use(express.json());
 
 //
-//
+//-------JWT--------
+
+const verifyJWT = (req, res, next) => {
+  const authorization = req.headers.authorization;
+  if (!authorization) {
+    return res
+      .status(401)
+      .send({ error: true, message: "unauthorized access" });
+  }
+  // bearer token
+  const token = authorization.split(" ")[1];
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res
+        .status(401)
+        .send({ error: true, message: "unauthorized access" });
+    }
+    req.decoded = decoded;
+    next();
+  });
+};
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nlhjk6a.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -26,7 +49,6 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
 
     const instrumentsCollection = client
       .db("Rhythmic")
@@ -37,6 +59,45 @@ async function run() {
       .collection("instructors");
     const admissionCollection = client.db("Rhythmic").collection("admission");
     const usersCollection = client.db("Rhythmic").collection("users");
+
+    // ----Verify JWT----
+
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+
+      res.send({ token });
+    });
+
+    // ---Verify Admin-----
+
+    const verifyAdmin = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      if (user?.role !== "Admin") {
+        return res
+          .status(403)
+          .send({ error: true, message: "forbidden message" });
+      }
+      next();
+    };
+
+    // ----Verify Instructor--------
+
+    const verifyInstructor = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      if (user?.role !== "Instructor") {
+        return res
+          .status(403)
+          .send({ error: true, message: "forbidden message" });
+      }
+      next();
+    };
 
     // ---------Users-----------
 
@@ -51,7 +112,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/users", async (req, res) => {
+    app.get("/users", verifyJWT, verifyAdmin, async (req, res) => {
       const result = await usersCollection.find().toArray();
       res.send(result);
     });
@@ -69,6 +130,21 @@ async function run() {
       res.send(result);
     });
 
+    // Admin Checking-------------
+    app.get("/users/checkAdmin/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+
+      console.log(req.decoded);
+      if (req.decoded.email !== email) {
+        res.send({ admin: false });
+      }
+
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      const result = { admin: user?.role === "Admin" };
+      res.send(result);
+    });
+
     // ---------Instruments------------
 
     app.get("/instruments", async (req, res) => {
@@ -76,13 +152,13 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/instruments", async (req, res) => {
+    app.post("/instruments", verifyJWT, verifyInstructor, async (req, res) => {
       const newInstrument = req.body;
       const result = await instrumentsCollection.insertOne(newInstrument);
       res.send(result);
     });
 
-    app.put("/instruments/:id", async (req, res) => {
+    app.put("/instruments/:id", verifyJWT, verifyAdmin, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const newInstrument = req.body;
@@ -101,7 +177,7 @@ async function run() {
       res.send(result);
     });
 
-    app.patch("/instruments/:id", async (req, res) => {
+    app.patch("/instruments/:id", verifyJWT, verifyAdmin, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const newInstrument = req.body;
@@ -131,11 +207,25 @@ async function run() {
       res.send(result);
     });
 
-    // -------
+    // Checking Instructor----------
+    app.get("/users/checkInstructor/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      console.log("hellloooo");
+
+      if (req.decoded.email !== email) {
+        res.send({ instructor: false });
+      }
+
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      const result = { instructor: user?.role === "Instructor" };
+      res.send(result);
+    });
 
     // --------Admission-----------
 
     app.get("/admission", async (req, res) => {
+      console.log("inside admission");
       const email = req.query.email;
       if (!email) {
         res.send([]);
@@ -158,8 +248,24 @@ async function run() {
       res.send(result);
     });
 
+    // -------PAYMENT INTENTION----------
+
+    app.post("/create-payment-intent", async (req, res) => {
+      const { price } = req.body;
+      const amount = parseInt(price * 100);
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount,
+        currency: "usd",
+        payment_method_types: ["card"],
+      });
+
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      });
+    });
+
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
